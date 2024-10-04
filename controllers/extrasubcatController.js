@@ -3,38 +3,17 @@ const CategoryModel = require('../models/categoryModel');
 const SubCategoryModel = require('../models/subcategoryModel');
 
 //to add extrasubaddcat page
-const addextrasubcatPage = (req,res) => {
-    res.render('extrasub/AddextrasubCatPage');
-}
-
-//to view data 
-const postextrasubcat = async(req,res) => {
-    try {
-        const {category,subcategory,extrasubcategory} = req.body;
-        await extrsubcatModel.create({
-            categoryId : category,
-            subcategoryId : subcategory,
-            extrasubcategory : extrasubcategory
-        })
-        return res.redirect('/extrasubcategory/viewpage');
-    } catch (error) {
-        console.log(error);
-        return false;   
+const addextrasubcatPage = async(req,res) => {
+       try{
+        const category = await CategoryModel.find({});
+        console.log(category,"hi cat");
         
-    }
-}
-
-//add sub and category 
-const addsubandcat = async(req,res) => {
-    try{
-        const cat = await CategoryModel.find({});
-        console.log(cat,"hi cat");
-        
-        const subcat = await SubCategoryModel.find({});
-        return res.render("extrasub/AddextrasubCatPage",{
-            category : cat,
-            subcategory :subcat
-        })
+        const subcategory = await SubCategoryModel.find({});
+    res.render('extrasub/AddextrasubCatPage',{
+        category:category,
+        subcategory:subcategory
+    });
+       
     }catch(err)
     {
         console.log(err);
@@ -42,6 +21,25 @@ const addsubandcat = async(req,res) => {
     }
 }
 
+
+//to post data in mongo
+const postextrasubcat = async(req,res) => {
+    try {
+        const {category,subcategory,extrasubcategory} = req.body;
+        console.log(req.body);
+        
+        await extrsubcatModel.create({
+            categoryId : category,
+            subcategoryId : subcategory,
+            extrasubcategory : extrasubcategory
+        })
+        return res.redirect('/extrasub/addpage');
+    } catch (error) {
+        console.log(error);
+        return false;   
+        
+    }
+}
 //for view
 const viewextrasubcat = async(req,res) => {                  
     try {
@@ -57,4 +55,4 @@ const viewextrasubcat = async(req,res) => {
     }
 }
 
-module.exports = {addextrasubcatPage,postextrasubcat,viewextrasubcat,addsubandcat}
+module.exports = {addextrasubcatPage,postextrasubcat,viewextrasubcat}

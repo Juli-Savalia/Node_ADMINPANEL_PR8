@@ -5,7 +5,7 @@ const AddSubCategoryPage = async(req,res) => {
     try{
         let category = await CategoryModel.find({});
         console.log(category);
-        console.log('hii');
+        // console.log('hii');
         
         return res.render('subcategory/AddSubCategory',{
             category : category
@@ -39,13 +39,17 @@ const AddSubCategoryPost = async(req,res) => {
 //view sub cat page
 const ViewSubCategoryPage =async (req,res) => {
     try {
-        const showsubCategory = await SubCategoryModel.find({});
+     // Re-fetch the subcategories to pass to the view after deletion or joining table
+        const showsubCategory = await SubCategoryModel.find({}).populate('categoryId');
+        console.log(showsubCategory,'hi ssc');
         return res.render('subcategory/ViewSubCategoryPage',{
             showsubCategory : showsubCategory
+            
         });
         
+        
     } catch (error) {
-        consol.log(error)
+        console.log(error)
         return false;
     }
 }
@@ -54,13 +58,8 @@ const ViewSubCategoryPage =async (req,res) => {
 const DeleteSubCategory = async(req,res) => {
     try {
         const id = req.query.id;
-         await SubCategoryModel.findByIdAndDelete(id);
-          // Re-fetch the subcategories to pass to the view after deletion or joining table
-        const showsubCategory = await SubCategoryModel.find({}).populate('categoryId');
-        
-        return res.render('subcategory/ViewSubCategoryPage', {
-            showsubCategory: showsubCategory // Pass the subcategories to the view
-        });
+         await SubCategoryModel.findByIdAndDelete(id);        
+        return res.redirect('/subcategory/ViewSubCategoryPage');
     } catch (error) {
         console.log(error);
         return false;

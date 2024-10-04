@@ -41,12 +41,12 @@
               <label for="fname"  
                   class="col-sm-3 text-end control-label col-form-label">Category</label>
               <div class="col-sm-9">
-                  <select name="category" class="form-control">
-                      <option value="">---select category---</option>
-                      <% category.map((val)=>{ %>
-                          <option value="<%= val._id %>"><%= val.category %></option>
-                      <% }) %>
-                  </select>
+                <select name="category" class="form-control">
+                  <option value="">---select category---</option>
+                  <% category.map((val)=>{ %>
+                      <option value="<%= val._id %>"><%= val.category %></option>
+                  <% }) %>
+              </select>
               </div> 
           </div>
 
@@ -56,7 +56,7 @@
               <div class="col-sm-9">
                   <select name="subcategory" class="form-control">
                       <option value="">---select subcategory---</option>
-                      <% subcat.map((val)=>{ %>
+                      <% subcategory.map((val)=>{ %>
                           <option value="<%= val._id %>"><%= val.subcategory %></option>
                       <% }) %>
                   </select>
@@ -68,14 +68,14 @@
                 class="col-sm-3 text-end control-label col-form-label"
                 >ExtraSubCategory</labeal>
               <div class="col-sm-9">
-                <input type="text" class="form-control" placeholder="subcategory name here" name="subcategory">
+                <input type="text" class="form-control" placeholder="subcategory name here" name="extrasubcategory">
               </div>
             </div>
           </div>
           <div class="border-top">
             <div class="card-body">
               <button type="submit" class="btn btn-primary">Submit</button>
-              <a href="/subcategory/ViewSubCategoryPage" class="btn btn-info">View</a>
+              <a href="/extrasub/ViewextrasubCatPage" class="btn btn-info">View</a>
             </div>
           </div>
         </form>

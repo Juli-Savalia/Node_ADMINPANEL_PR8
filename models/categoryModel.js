@@ -10,7 +10,7 @@ const categorySchema = mongoose.Schema({
         default : 'Active'
     }
 })
-const categories = mongoose.model('cat', categorySchema);
+const categories = mongoose.model('category', categorySchema);
 
 module.exports = categories; 
 
